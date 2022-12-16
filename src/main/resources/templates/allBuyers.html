@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BUYERS</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+</head>
+<body class="container">
+<table class="table table-striped table-bordered">
+    <tr>
+        <th> Name </th>
+    </tr>
+
+    <tr th:if="${allBuyers.isEmpty()}">
+        <td colspan="2"> No Buyers Available </td>
+    </tr>
+
+
+    <tr th:each="buyer : ${allBuyers}">
+        <td><a th:href="@{/buyers/{id}(id = ${buyer.getId()})}"><span th:text="${buyer.getName()}"></span></a></td>
+        <td>
+            <form th:action="@{/buyers/{id}(id = ${buyer.getId()})}" th:object="${buyer}" th:method="delete">
+                <button type="submit" class="btn btn-primary">Удалить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<form method="get" th:action="@{/buyers/newBuyer}">
+    <input type="submit" class="btn btn-primary" value="Добавить Покупателя">
+</form>
+
+</body>
+</html>
