@@ -1,0 +1,60 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BUYERS</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+</head>
+<body class="container">
+
+<h2>PRODUCTS IN BASKET</h2>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th> ID   </th>
+        <th> Name </th>
+        <th> Cost </th>
+    </tr>
+
+    <tr th:if="${BuyerInfo.getProductList().isEmpty()}">
+        <td colspan="3"> No Products in basket </td>
+    </tr>
+
+    <tr th:each="product : ${BuyerInfo.getProductList()}">
+        <td th:text="${product.getId()}"></td>
+        <td th:text="${product.getName()}"></td>
+        <td th:text="${product.getCost()}"><</td>
+        <td>
+            <form  th:action="@{/buyers/{id}/{productId}(productId=${product.getId()}, id=${BuyerInfo.getId()})}" th:method="delete">
+                <button type="submit" class="btn btn-primary">Удалить из корзины</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<h2>ADD PRODUCTS TO BASKET</h2>
+<br>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th> Name </th>
+        <th> Cost </th>
+    </tr>
+
+    <tr th:if="${products.isEmpty()}">
+        <td colspan="3"> No Products available </td>
+    </tr>
+
+    <tr th:each="product : ${products}">
+        <td th:text="${product.getName()}"></td>
+        <td th:text="${product.getCost()}"><</td>
+        <td>
+            <form  th:action="@{/buyers/{id}/{productId}(productId=${product.getId()}, id=${BuyerInfo.getId()})}" th:method="PATCH">
+                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

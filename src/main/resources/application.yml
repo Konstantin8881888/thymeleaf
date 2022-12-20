@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/Products
+    username: user
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
